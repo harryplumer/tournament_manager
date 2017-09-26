@@ -1,17 +1,19 @@
 import React from 'react'
 import {Modal, Form, Button, Icon} from 'semantic-ui-react'
 import {addTournament, updateTournament} from '../actions/tournaments'
+import { connect } from 'react-redux';
+
 class TournamentForm extends React.Component {
   state = {tournament: {name: "", number_of_divisions: ""}, editing: false }
 
   handleChange = (propertyName) => (event) => {
-      const tournament  = this.state
-      const newTournament = {
-        ...tournament,
-        [propertyName]: event.target.value
-      };
-      this.setState({ tournament: newTournament })
+    const {tournament}  = this.state
+    const newTournament = {
+      ...tournament,
+      [propertyName]: event.target.value
     }
+    this.setState({ tournament: newTournament })
+  }
 
   handleSubmit = (e) => {
     e.preventDefault()
@@ -78,4 +80,4 @@ class TournamentForm extends React.Component {
   }
 }
 
-export default TournamentForm
+export default connect()(TournamentForm)

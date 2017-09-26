@@ -7,8 +7,8 @@ class Api::TournamentsController < ApplicationController
   end
 
   def create
-    tournament = Tournament.new
-    if tournament.save(tournament_params)
+    tournament = Tournament.create(tournament_params)
+    if tournament.save
       render json: tournament
     else
       render json: { errors: tournament.errors.join(',') }, status: 422
@@ -21,6 +21,7 @@ class Api::TournamentsController < ApplicationController
       render json: @tournament
     else
       render json: { errors: @tournament.errors.join(', ')}, status: 422
+    end
   end
 
   def destroy
@@ -29,7 +30,7 @@ class Api::TournamentsController < ApplicationController
 
   private
   def tournament_params
-    params.require(:tournament).permit(:name)
+    params.require(:tournament).permit(:name, :number_of_divisions)
   end
 
   def set_tournament
