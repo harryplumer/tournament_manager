@@ -7,7 +7,7 @@ class Api::DivisionsController < ApplicationController
   end
 
   def create
-    division = @tournament.divisions.new(division_params)
+    division = @tournament.divisions.create(division_params)
     if division.save
       render json: division.to_json(:include => { :category => { :only => :id }})
     else
